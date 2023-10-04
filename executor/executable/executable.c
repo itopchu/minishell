@@ -68,7 +68,9 @@ int	execute_exe(t_com *com)
 	do_sig(PARENT);
 	if (waitpid(pid, &status, 0) == -1)
 		return (error_exit("waitpid", errno));
-	if ((status & 0x7f) == 0)
-		g_sig = (status >> 8) & 0xff;
+	if (WIFEXITED(ret))
+		g_sig = WEXITSTATUS(ret);
+	else if (WIFSIGNALED(ret))
+		g_sig = WTERMSIG(ret) + 128;
 	return (g_sig);
 }
