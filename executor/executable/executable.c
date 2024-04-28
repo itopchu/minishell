@@ -55,6 +55,7 @@ int	execute_exe(t_com *com)
 {
 	pid_t	pid;
 	int		status;
+	int		ret;
 
 	if (!com)
 		return (0);
